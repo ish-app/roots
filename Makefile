@@ -1,7 +1,7 @@
 OUT = out
 MAKEROOT = ./makeroot.sh
 
-ROOTS = appstore alpine
+ROOTS = appstore alpine appstore-odrs
 ROOT_TARS = $(ROOTS:%=$(OUT)/%.tar.gz)
 
 .PHONY: all
@@ -26,3 +26,4 @@ endef
 $(eval $(call download-root,http://dl-cdn.alpinelinux.org/alpine/v3.12/releases/x86/alpine-minirootfs-3.12.0-x86.tar.gz))
 $(eval $(call make-root,alpine,alpine-minirootfs-3.12.0-x86))
 $(eval $(call make-root,appstore,alpine-minirootfs-3.12.0-x86))
+$(eval $(call make-root,appstore-odrs,alpine-minirootfs-3.12.0-x86))
