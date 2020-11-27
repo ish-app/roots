@@ -14,11 +14,18 @@ def flatten(image, output):
     layers = [tarfile.open(fileobj=image.extractfile(layer)) for layer in manifest['Layers']]
     for layer in layers:
         for info in layer.getmembers():
+            info.name = './' + info.name
             dirname, sep, basename = info.name.rpartition('/')
             if basename.startswith(WHITEOUT):
                 del entries[dirname+sep+basename[len(WHITEOUT):]]
             else:
                 entries[info.name] = layer, info
+    # need a root entry
+    if './' not in entries:
+        info = tarfile.TarInfo('./')
+        info.type = tarfile.DIRTYPE
+        info.mode = 0o755
+        entries[info.name] = None, info
     for layer, info in entries.values():
         fileobj = layer.extractfile(info) if info.isfile() else None
         output.addfile(info, fileobj)
