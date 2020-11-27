@@ -1,4 +1,5 @@
 FROM --platform=linux/386 alpine:3.12.0 AS ish-alpine
+RUN touch /etc/ish-version
 
 FROM ish-alpine
 LABEL ish.export=appstore.tar.gz
