@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import tarfile
 import json
-import sys
 import os
+import sys
+import tarfile
 
 WHITEOUT = '.wh.'
 
@@ -28,10 +28,11 @@ def flatten(image, output):
         entries[info.name] = None, info
     for layer, info in entries.values():
         fileobj = layer.extractfile(info) if info.isfile() else None
+        info.mtime = 0
         output.addfile(info, fileobj)
     for layer in layers:
         layer.close()
 
 with tarfile.open(sys.argv[1]) as image:
-    with tarfile.open(sys.argv[2], 'x') as output:
+    with tarfile.open(fileobj=sys.stdout.buffer, mode='w|') as output:
         flatten(image, output)
