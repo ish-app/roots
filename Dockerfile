@@ -1,12 +1,7 @@
-FROM --platform=linux/386 alpine:3.12.0 AS ish-alpine
-
-FROM ish-alpine
-LABEL ish.export=appstore.tar.gz
-RUN apk del apk-tools && rm -rf /usr/share/apk
-RUN : > /etc/motd
+FROM --platform=linux/386 alpine:3.12.8 AS ish-alpine
 
 FROM ish-alpine
 LABEL ish.export=appstore-apk.tar.gz
 RUN mkdir /ish && touch /ish/version
+RUN echo 296 > /ish/apk-version
 COPY apk-motd /etc/motd
-COPY odr-repositories /etc/apk/repositories

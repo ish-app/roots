@@ -1,9 +1,9 @@
 #!/bin/bash -e
 cd $(dirname "$0")
 
-podman build .
+podman build --platform=linux/386 .
 
-roots=(appstore appstore-apk)
+roots=(appstore-apk)
 mkdir -p out
 for root in "${roots[@]}"; do
     image=$(podman images --filter label=ish.export="$root.tar.gz" --quiet | head -n1)
