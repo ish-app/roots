@@ -1,4 +1,4 @@
-FROM --platform=linux/386 alpine:3.12.8 AS ish-alpine
+FROM --platform=linux/386 docker.io/library/alpine:3.14.3 AS ish-alpine
 
 FROM ish-alpine
 LABEL ish.export=appstore-apk.tar.gz
